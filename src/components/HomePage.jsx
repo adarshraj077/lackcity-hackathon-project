@@ -121,25 +121,38 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
 
           {/* Desktop Navigation - completely hidden on mobile */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm text-white/80">
-            {['About', 'Contact'].map((item, i) => (
-              <motion.a
-                key={item}
-                className="relative hover:text-white transition-colors cursor-hover"
-                href={`#${item.toLowerCase().replace(' ', '-')}`}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * i, duration: 0.5 }}
-                whileHover={{ y: -2 }}
-              >
-                {item}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              whileHover={{ y: -2 }}
+            >
+              <Link to="/about" className="relative hover:text-white transition-colors">
+                About
                 <motion.span
                   className="absolute -bottom-1 left-0 h-[2px] bg-indigo-400"
                   initial={{ width: 0 }}
                   whileHover={{ width: '100%' }}
                   transition={{ duration: 0.3 }}
                 />
-              </motion.a>
-            ))}
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              whileHover={{ y: -2 }}
+            >
+              <Link to="/contact" className="relative hover:text-white transition-colors">
+                Contact
+                <motion.span
+                  className="absolute -bottom-1 left-0 h-[2px] bg-indigo-400"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                />
+              </Link>
+            </motion.div>
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
@@ -310,19 +323,32 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                 </button>
               </div>
               <nav className="flex flex-col p-4 space-y-1">
-                {['About', 'Contact'].map((item, i) => (
-                  <motion.a
-                    key={item}
-                    className="text-white/80 hover:text-white hover:bg-white/5 py-4 px-4 rounded-xl transition-colors text-lg"
-                    href={`#${item.toLowerCase().replace(' ', '-')}`}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <Link
+                    to="/about"
+                    className="text-white/80 hover:text-white hover:bg-white/5 py-4 px-4 rounded-xl transition-colors text-lg block"
                     onClick={() => setMobileMenuOpen(false)}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + i * 0.05 }}
                   >
-                    {item}
-                  </motion.a>
-                ))}
+                    About
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.15 }}
+                >
+                  <Link
+                    to="/contact"
+                    className="text-white/80 hover:text-white hover:bg-white/5 py-4 px-4 rounded-xl transition-colors text-lg block"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Contact
+                  </Link>
+                </motion.div>
 
                 <motion.button
                   onClick={() => {

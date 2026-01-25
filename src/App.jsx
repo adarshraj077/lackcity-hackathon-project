@@ -5,6 +5,8 @@ import ErrorBoundary from './components/ErrorBoundary.jsx'
 import HomePage from './components/HomePage.jsx'
 import Interaction from './components/interaction.jsx'
 import Maps from './components/maps.jsx'
+import ContactPage from './components/ContactPage.jsx'
+import AboutPage from './components/AboutPage.jsx'
 import PageTransition from './components/PageTransition.jsx'
 
 function AnimatedRoutes() {
@@ -41,6 +43,16 @@ function AnimatedRoutes() {
         <Route path="/maps" element={
           <PageTransition>
             <Maps isDarkMode={isDarkMode} />
+          </PageTransition>
+        } />
+        <Route path="/about" element={
+          <PageTransition>
+            <AboutPage isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
+          </PageTransition>
+        } />
+        <Route path="/contact" element={
+          <PageTransition>
+            <ContactPage isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
           </PageTransition>
         } />
       </Routes>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getTriageResult } from '../utils/openai'
@@ -37,6 +37,12 @@ export default function Interaction({ isDarkMode = false }) {
   const [historyLoading, setHistoryLoading] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
 
+  // Speech recognition state
+  const [isListening, setIsListening] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(false)
+  const recognitionRef = useRef(null)
+  const finalTranscriptRef = useRef('')
+
   const baseBgClass = isDarkMode ? 'bg-black' : 'bg-slate-950'
   const overlayBgClass = isDarkMode ? 'bg-black/80' : 'bg-slate-950/70'
   const orbPrimary = isDarkMode ? 'bg-neutral-900/40' : 'bg-sky-500/20'
@@ -63,6 +69,144 @@ export default function Interaction({ isDarkMode = false }) {
     }
     fetchHistory()
   }, [currentUser])
+
+  // Initialize speech recognition
+  useEffect(() => {
+    // Check if browser supports speech recognition
+    if (typeof window === 'undefined') return
+    
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    
+    if (SpeechRecognition) {
+      setSpeechSupported(true)
+    } else {
+      setSpeechSupported(false)
+      console.log('Speech recognition not supported in this browser')
+    }
+  }, [])
+
+  // Create and start speech recognition
+  const startListening = useCallback(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SpeechRecognition) {
+      setError('Speech recognition not supported in your browser. Try Chrome or Edge.')
+      return
+    }
+
+    // Create a fresh instance each time
+    const recognition = new SpeechRecognition()
+    recognitionRef.current = recognition
+    finalTranscriptRef.current = ''
+    
+    recognition.continuous = true  // Keep listening until stopped
+    recognition.interimResults = true
+    recognition.lang = 'en-US'
+    recognition.maxAlternatives = 1
+    
+    let hasReceivedResult = false
+    
+    recognition.onstart = () => {
+      console.log('Speech recognition started')
+      setIsListening(true)
+      setError(null)
+    }
+    
+    recognition.onaudiostart = () => {
+      console.log('Audio capture started')
+    }
+    
+    recognition.onresult = (event) => {
+      hasReceivedResult = true
+      let interimTranscript = ''
+      
+      // Build transcript from results
+      for (let i = 0; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript
+        if (event.results[i].isFinal) {
+          finalTranscriptRef.current += transcript + ' '
+        } else {
+          interimTranscript += transcript
+        }
+      }
+      
+      // Update input with accumulated final + current interim
+      const displayText = (finalTranscriptRef.current + interimTranscript).trim()
+      setInput(displayText)
+    }
+    
+    recognition.onerror = (event) => {
+      console.error('Speech recognition error:', event.error)
+      
+      switch (event.error) {
+        case 'not-allowed':
+        case 'permission-denied':
+          setError('Microphone access denied. Please allow microphone access in your browser settings.')
+          setIsListening(false)
+          break
+        case 'no-speech':
+          // Ignore no-speech in continuous mode, just keep listening
+          break
+        case 'audio-capture':
+          setError('No microphone found. Please connect a microphone and try again.')
+          setIsListening(false)
+          break
+        case 'network':
+          // Network error - speech API couldn't reach Google servers
+          setError('Speech service unavailable. Try: 1) Refresh the page, 2) Use Chrome browser, 3) Check if any VPN/firewall is blocking.')
+          setIsListening(false)
+          break
+        case 'aborted':
+          // User stopped, no error needed
+          break
+        case 'service-not-allowed':
+          setError('Speech service not available. Please try using Chrome browser.')
+          setIsListening(false)
+          break
+        default:
+          console.log('Unknown error:', event.error)
+      }
+    }
+    
+    recognition.onend = () => {
+      console.log('Speech recognition ended, hasReceivedResult:', hasReceivedResult)
+      setIsListening(false)
+    }
+    
+    // Start recognition
+    try {
+      recognition.start()
+      console.log('Recognition.start() called')
+    } catch (err) {
+      console.error('Failed to start recognition:', err)
+      setError('Failed to start voice input. Please try again.')
+      setIsListening(false)
+    }
+  }, [])
+
+  // Stop speech recognition
+  const stopListening = useCallback(() => {
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop()
+      } catch (e) {
+        console.log('Error stopping:', e)
+      }
+      recognitionRef.current = null
+    }
+    setIsListening(false)
+  }, [])
+
+  // Toggle speech recognition
+  const toggleListening = useCallback(() => {
+    if (isListening) {
+      stopListening()
+    } else {
+      setError(null)
+      setInput('')  // Clear previous input
+      finalTranscriptRef.current = ''
+      startListening()
+    }
+  }, [isListening, startListening, stopListening])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -178,6 +322,42 @@ export default function Interaction({ isDarkMode = false }) {
             </motion.span>
             <span className="text-base sm:text-lg group-hover:text-sky-300 transition-colors">lackecity</span>
           </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              whileHover={{ y: -2 }}
+            >
+              <Link to="/about" className="relative hover:text-white transition-colors">
+                About
+                <motion.span
+                  className="absolute -bottom-1 left-0 h-[2px] bg-sky-400"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              whileHover={{ y: -2 }}
+            >
+              <Link to="/contact" className="relative hover:text-white transition-colors">
+                Contact
+                <motion.span
+                  className="absolute -bottom-1 left-0 h-[2px] bg-sky-400"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                />
+              </Link>
+            </motion.div>
+          </nav>
 
           <div className="flex items-center gap-2">
             <motion.div
@@ -346,21 +526,51 @@ export default function Interaction({ isDarkMode = false }) {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Describe your symptoms..."
-              className="flex-1 bg-transparent px-3 sm:px-4 py-3 sm:py-4 text-sm sm:text-base text-white placeholder-white/40 outline-none"
+              placeholder={isListening ? "Listening... speak now" : "Describe your symptoms..."}
+              className={`flex-1 bg-transparent px-3 sm:px-4 py-3 sm:py-4 text-sm sm:text-base text-white placeholder-white/40 outline-none ${isListening ? 'placeholder-sky-400/70' : ''}`}
+              readOnly={isListening}
             />
 
-            {/* Mic Icon - hidden on small mobile */}
-            <motion.button
-              type="button"
-              className="hidden xs:flex mr-1 sm:mr-2 h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl text-white/50 hover:text-white"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5 sm:h-6 sm:w-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
-              </svg>
-            </motion.button>
+            {/* Mic Icon - Speech Recognition Button */}
+            {speechSupported && (
+              <motion.button
+                type="button"
+                onClick={toggleListening}
+                className={`mr-1 sm:mr-2 h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl transition-all flex ${
+                  isListening 
+                    ? 'bg-red-500 text-white shadow-lg shadow-red-500/50' 
+                    : 'text-white/50 hover:text-white hover:bg-white/10'
+                }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                animate={isListening ? { scale: [1, 1.1, 1] } : {}}
+                transition={isListening ? { repeat: Infinity, duration: 1 } : {}}
+                title={isListening ? 'Stop listening' : 'Start voice input'}
+              >
+                {isListening ? (
+                  <motion.div
+                    className="relative"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                  >
+                    {/* Pulsing ring animation */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-red-400"
+                      animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6 relative z-10">
+                      <path d="M8.25 4.5a3.75 3.75 0 117.5 0v8.25a3.75 3.75 0 11-7.5 0V4.5z" />
+                      <path d="M6 10.5a.75.75 0 01.75.75v1.5a5.25 5.25 0 1010.5 0v-1.5a.75.75 0 011.5 0v1.5a6.751 6.751 0 01-6 6.709v2.291h3a.75.75 0 010 1.5h-7.5a.75.75 0 010-1.5h3v-2.291a6.751 6.751 0 01-6-6.709v-1.5A.75.75 0 016 10.5z" />
+                    </svg>
+                  </motion.div>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5 sm:h-6 sm:w-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+                  </svg>
+                )}
+              </motion.button>
+            )}
 
             {/* Submit Button */}
             <motion.button
