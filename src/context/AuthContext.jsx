@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { 
-  signInWithPopup, 
+import {
+  signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
-  signOut, 
+  signOut,
   onAuthStateChanged,
   setPersistence,
   browserLocalPersistence
@@ -20,6 +20,13 @@ export function useAuth() {
 function isMobileDevice() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
     (window.innerWidth <= 768);
+}
+
+// Helper function to check if running on localhost
+function isLocalhost() {
+  return window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1' ||
+    window.location.hostname.startsWith('192.168.');
 }
 
 export function AuthProvider({ children }) {
@@ -44,18 +51,26 @@ export function AuthProvider({ children }) {
     try {
       // Set persistence to LOCAL - this keeps the user logged in even after browser is closed
       await setPersistence(auth, browserLocalPersistence);
-      
-      // Use redirect for mobile devices (popups often get blocked)
-      if (isMobileDevice()) {
-        await signInWithRedirect(auth, googleProvider);
-        return null; // Will redirect, so no immediate result
-      } else {
-        // Use popup for desktop
+
+      // Use popup ONLY on localhost (where it works reliably)
+      // Use redirect for all deployed environments (Vercel, etc.) to avoid popup blocking issues
+      if (isLocalhost() && !isMobileDevice()) {
+        // Use popup only for desktop on localhost
         const result = await signInWithPopup(auth, googleProvider);
         return result.user;
+      } else {
+        // Use redirect for deployed sites and mobile (popups get blocked or fail)
+        await signInWithRedirect(auth, googleProvider);
+        return null; // Will redirect, so no immediate result
       }
     } catch (error) {
       console.error('Error signing in with Google:', error);
+      // If popup fails (e.g., blocked), fall back to redirect
+      if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+        console.log('Popup blocked or closed, falling back to redirect...');
+        await signInWithRedirect(auth, googleProvider);
+        return null;
+      }
       throw error;
     }
   }

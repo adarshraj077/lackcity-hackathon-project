@@ -1,10 +1,10 @@
-import { 
-  collection, 
-  addDoc, 
-  query, 
-  where, 
-  orderBy, 
-  limit, 
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  orderBy,
+  limit,
   getDocs,
   serverTimestamp,
   Timestamp
@@ -28,14 +28,14 @@ export async function saveSearch(userId, symptoms, result, location = null) {
       result,
       createdAt: serverTimestamp()
     };
-    
+
     // Add location data for heatmap if available
     if (location && location.lat && location.lng) {
       searchData.lat = location.lat;
       searchData.lng = location.lng;
       searchData.urgency = result?.urgency || 'normal';
     }
-    
+
     await addDoc(collection(db, SEARCHES_COLLECTION), searchData);
     // console.log('Search saved successfully');
   } catch (error) {
@@ -58,10 +58,10 @@ export async function getSearchHistory(userId, maxResults = 10) {
       collection(db, SEARCHES_COLLECTION),
       where('userId', '==', userId)
     );
-    
+
     const querySnapshot = await getDocs(q);
     const searches = [];
-    
+
     querySnapshot.forEach((doc) => {
       const data = doc.data();
       searches.push({
@@ -71,13 +71,13 @@ export async function getSearchHistory(userId, maxResults = 10) {
         createdAt: data.createdAt?.toDate() || new Date()
       });
     });
-    
+
     // Sort by createdAt descending (newest first) client-side
     searches.sort((a, b) => b.createdAt - a.createdAt);
-    
+
     // Limit results
     const limitedSearches = searches.slice(0, maxResults);
-    
+
     console.log('Fetched search history:', limitedSearches.length, 'items');
     return limitedSearches;
   } catch (error) {
@@ -91,25 +91,26 @@ export async function getSearchHistory(userId, maxResults = 10) {
  * Get anonymized heatmap data for emergency activity visualization
  * Fetches all searches with location data from the last 24 hours (or specified time range)
  * @param {number} hoursAgo - Number of hours to look back (default 24)
+ * @param {object} userLocation - Optional user's current location for demo data generation
  * @returns {Promise<Array>} Array of { lat, lng, urgency } objects
  */
-export async function getHeatmapData(hoursAgo = 24) {
+export async function getHeatmapData(hoursAgo = 24, userLocation = null) {
   try {
     // Calculate timestamp for time range
     const cutoffDate = new Date();
     cutoffDate.setHours(cutoffDate.getHours() - hoursAgo);
     const cutoffTimestamp = Timestamp.fromDate(cutoffDate);
-    
+
     // Query all searches with location data from the time range
     // Note: This query fetches all recent searches - in production you'd want pagination
     const q = query(
       collection(db, SEARCHES_COLLECTION),
       where('createdAt', '>', cutoffTimestamp)
     );
-    
+
     const querySnapshot = await getDocs(q);
     const heatmapPoints = [];
-    
+
     querySnapshot.forEach((doc) => {
       const data = doc.data();
       // Only include records that have location data
@@ -121,11 +122,40 @@ export async function getHeatmapData(hoursAgo = 24) {
         });
       }
     });
-    
+
     console.log('Fetched heatmap data:', heatmapPoints.length, 'points');
     return heatmapPoints;
   } catch (error) {
     console.error('Error fetching heatmap data:', error);
     return [];
+  }
+}
+
+/**
+ * Save an anonymous search for heatmap visualization (works for all users)
+ * This allows collecting anonymized location data even from non-logged-in users
+ * @param {object} location - User location { lat, lng }
+ * @param {string} urgency - The urgency level (emergency, urgent, normal)
+ */
+export async function saveAnonymousSearch(location, urgency = 'normal') {
+  try {
+    if (!location || !location.lat || !location.lng) {
+      console.log('No location provided for anonymous search');
+      return;
+    }
+
+    const searchData = {
+      lat: location.lat,
+      lng: location.lng,
+      urgency: urgency,
+      createdAt: serverTimestamp(),
+      isAnonymous: true  // Flag to identify anonymous searches
+    };
+
+    await addDoc(collection(db, SEARCHES_COLLECTION), searchData);
+    console.log('Saved anonymous search for heatmap');
+  } catch (error) {
+    console.error('Error saving anonymous search:', error);
+    // Silently fail - don't break the user experience for heatmap data
   }
 }
