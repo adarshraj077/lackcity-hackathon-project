@@ -2,7 +2,7 @@
 
 **Intelligent Medical Triage and Hospital Finder**
 
-![Sehat AI Banner](image.png)
+![Sehat AI Banner](image%20copy%202.png)
 
 ---
 
