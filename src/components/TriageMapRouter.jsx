@@ -144,26 +144,75 @@ export default function TriageMapRouter({ triageResult, selectedFacility = null,
       })
     }
 
-    // Get user location
+    // Get user location with retry and accuracy validation
     const getUserLocation = () => {
       return new Promise((resolve) => {
         if (!navigator.geolocation) {
-          resolve({ lat: 28.6139, lng: 77.2090 }) // Default Delhi
+          console.warn('Geolocation not supported, using default location')
+          setError('Location not available. Showing results near Delhi. Please enable location for accurate results.')
+          resolve({ lat: 28.6139, lng: 77.2090, isDefault: true })
           return
         }
 
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            resolve({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            })
-          },
-          () => {
-            resolve({ lat: 28.6139, lng: 77.2090 }) // Default Delhi on error
-          },
-          { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-        )
+        let attempts = 0
+        const maxAttempts = 2
+
+        const tryGetLocation = () => {
+          attempts++
+
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude, accuracy } = position.coords
+
+              // Validate coordinates are reasonable (not 0,0 or null)
+              if (!latitude || !longitude || (latitude === 0 && longitude === 0)) {
+                console.warn('Invalid coordinates received, retrying...')
+                if (attempts < maxAttempts) {
+                  setTimeout(tryGetLocation, 1000)
+                } else {
+                  console.warn('Failed to get valid location after retries')
+                  setError('Could not determine your exact location. Showing results near Delhi.')
+                  resolve({ lat: 28.6139, lng: 77.2090, isDefault: true })
+                }
+                return
+              }
+
+              // Warn if accuracy is very poor (> 5km)
+              if (accuracy > 5000) {
+                console.warn('Location accuracy is poor:', accuracy, 'meters')
+              }
+
+              console.log('Got user location:', latitude, longitude, 'accuracy:', accuracy, 'm')
+              resolve({ lat: latitude, lng: longitude, isDefault: false })
+            },
+            (error) => {
+              console.warn('Geolocation error:', error.code, error.message)
+
+              // Retry on timeout
+              if (error.code === error.TIMEOUT && attempts < maxAttempts) {
+                console.log('Geolocation timeout, retrying...')
+                setTimeout(tryGetLocation, 500)
+                return
+              }
+
+              // Show user-friendly error based on error type
+              if (error.code === error.PERMISSION_DENIED) {
+                setError('Location permission denied. Please enable location access for accurate results.')
+              } else {
+                setError('Could not get your location. Showing results near Delhi.')
+              }
+
+              resolve({ lat: 28.6139, lng: 77.2090, isDefault: true })
+            },
+            {
+              enableHighAccuracy: true,
+              timeout: 15000,
+              maximumAge: 0
+            }
+          )
+        }
+
+        tryGetLocation()
       })
     }
 
@@ -253,9 +302,40 @@ export default function TriageMapRouter({ triageResult, selectedFacility = null,
       query: query || 'hospital near me',
     }
 
+    // Helper to filter results within max distance (50km)
+    const filterByDistance = (results) => {
+      return results.filter(p => {
+        if (!p.geometry?.location) return false
+        const lat = p.geometry.location.lat()
+        const lng = p.geometry.location.lng()
+        const distance = calculateDistance(userLocation.lat, userLocation.lng, lat, lng)
+        return distance <= 50 // Max 50km
+      })
+    }
+
     service.textSearch(request, (results, status) => {
       if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
-        processResults(results, map)
+        // Filter to only include nearby results (within 50km)
+        const nearbyResults = filterByDistance(results)
+
+        if (nearbyResults.length > 0) {
+          processResults(nearbyResults, map)
+        } else {
+          // Fallback to generic hospital search if specific query found no nearby results
+          console.log('No nearby results for specific query, falling back to generic hospital search')
+          service.nearbySearch({
+            location: new window.google.maps.LatLng(userLocation.lat, userLocation.lng),
+            radius: radius,
+            type: 'hospital',
+          }, (genericResults, genericStatus) => {
+            if (genericStatus === window.google.maps.places.PlacesServiceStatus.OK && genericResults) {
+              processResults(genericResults, map)
+            } else {
+              setError('No hospitals found nearby')
+              setLoading(false)
+            }
+          })
+        }
       } else {
         // Fallback: nearby search for hospitals
         service.nearbySearch({
@@ -290,6 +370,7 @@ export default function TriageMapRouter({ triageResult, selectedFacility = null,
           const score = calculateScore(place, distance)
           return { ...place, distance, score, isOpen: null }
         })
+        .filter(place => place.distance <= 50) // Max 50km distance filter - reject far results
         .sort((a, b) => b.score - a.score)
         .slice(0, triageResult?.urgency === 'emergency' ? 6 : 8) // Get a few extra to filter
 

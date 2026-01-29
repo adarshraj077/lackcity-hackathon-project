@@ -167,7 +167,7 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
   return (
     <div ref={containerRef} className={`min-h-screen ${baseBgClass} overflow-hidden`}>
       {/* Background decoration - matching ContactPage style */}
-      <motion.div 
+      <motion.div
         className="pointer-events-none absolute inset-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -201,7 +201,7 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
 
       {/* Navigation Bar */}
       <header className="relative z-10">
-        <motion.div 
+        <motion.div
           className="mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-5"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -210,14 +210,12 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
           <div className={`flex items-center justify-between ${navBgClass} backdrop-blur-md rounded-2xl px-4 sm:px-6 py-3 shadow-lg shadow-black/5 ring-1 ${isDarkMode ? 'ring-gray-700' : 'ring-gray-200'}`}>
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2.5 font-semibold tracking-tight group">
-              <motion.span 
-                className={`grid h-9 w-9 place-items-center rounded-xl ${isDarkMode ? 'bg-gray-700' : 'bg-gray-800'} shadow-lg`}
+              <motion.span
+                className="h-9 w-9 rounded-xl overflow-hidden shadow-lg"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
+                <img src="/logo.png" alt="Sehat AI" className="w-full h-full object-cover" />
               </motion.span>
               <span className={`text-lg font-bold ${textPrimaryClass}`}>Sehat AI</span>
             </Link>
@@ -231,13 +229,12 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * index, duration: 0.5 }}
                 >
-                  <Link 
-                    to={item.path} 
-                    className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                      location.pathname === item.path 
-                        ? (isDarkMode ? 'text-white bg-white/10' : 'text-gray-900 bg-gray-100') 
+                  <Link
+                    to={item.path}
+                    className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all ${location.pathname === item.path
+                        ? (isDarkMode ? 'text-white bg-white/10' : 'text-gray-900 bg-gray-100')
                         : (isDarkMode ? 'hover:bg-white/10 hover:text-white' : 'hover:bg-black/5 hover:text-gray-900')
-                    }`}
+                      }`}
                   >
                     {item.name}
                   </Link>
@@ -267,9 +264,9 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
                 <div className="hidden md:flex items-center gap-3">
                   <div className="flex items-center gap-2">
                     {currentUser.photoURL && (
-                      <img 
-                        src={currentUser.photoURL} 
-                        alt="Profile" 
+                      <img
+                        src={currentUser.photoURL}
+                        alt="Profile"
                         className={`w-8 h-8 rounded-full ring-2 ${isDarkMode ? 'ring-gray-600' : 'ring-gray-300'}`}
                       />
                     )}
@@ -296,10 +293,10 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
                   whileTap={{ scale: 0.98 }}
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                   </svg>
                   {authLoading ? 'Loading...' : 'Sign in with Google'}
                 </motion.button>
@@ -317,7 +314,7 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
                   Tell Symptoms
                 </Link>
               </motion.div>
-              
+
               {/* Mobile Menu Button */}
               <button
                 className={`flex md:hidden items-center justify-center w-10 h-10 rounded-xl transition-colors ${isDarkMode ? 'bg-gray-800 text-white ring-1 ring-gray-700' : 'bg-gray-100 text-gray-700'}`}
@@ -352,10 +349,8 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
             >
               <div className={`flex items-center justify-between p-4 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
                 <Link to="/" className="flex items-center gap-2.5 font-semibold" onClick={() => setMobileMenuOpen(false)}>
-                  <span className={`grid h-9 w-9 place-items-center rounded-xl ${isDarkMode ? 'bg-gray-700' : 'bg-gray-800'} shadow-lg`}>
-                    <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
+                  <span className="h-9 w-9 rounded-xl overflow-hidden shadow-lg">
+                    <img src="/logo.png" alt="Sehat AI" className="w-full h-full object-cover" />
                   </span>
                   <span className={`text-lg font-bold ${textPrimaryClass}`}>Sehat AI</span>
                 </Link>
@@ -378,11 +373,10 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
                   >
                     <Link
                       to={item.path}
-                      className={`py-4 px-4 rounded-xl transition-colors text-lg block ${
-                        location.pathname === item.path
+                      className={`py-4 px-4 rounded-xl transition-colors text-lg block ${location.pathname === item.path
                           ? (isDarkMode ? 'text-white bg-gray-800' : 'text-gray-900 bg-gray-100')
                           : (isDarkMode ? 'text-gray-400 hover:text-white hover:bg-gray-800' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100')
-                      }`}
+                        }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.name}
@@ -419,29 +413,29 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
       <main className="relative z-10">
         <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 pb-16 pt-8 sm:pt-12">
           {/* Header */}
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             variants={staggerContainer}
             initial="initial"
             animate="animate"
           >
-            <motion.span 
+            <motion.span
               className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6 ${isDarkMode ? 'bg-gray-800 text-gray-300 ring-1 ring-gray-700' : 'bg-gray-100 text-gray-700 ring-1 ring-gray-200'}`}
               {...fadeInUp}
             >
               <svg className={`w-4 h-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
               </svg>
               Health & Wellness Articles
             </motion.span>
-            <motion.h1 
+            <motion.h1
               className={`text-4xl sm:text-5xl md:text-6xl font-extrabold ${textPrimaryClass} mb-4`}
               {...fadeInUp}
             >
               Latest{' '}
               <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Articles</span>
             </motion.h1>
-            <motion.p 
+            <motion.p
               className={`text-lg ${textSecondaryClass} max-w-2xl mx-auto`}
               {...fadeInUp}
             >
@@ -450,7 +444,7 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
           </motion.div>
 
           {/* Articles Grid */}
-          <motion.div 
+          <motion.div
             className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
             variants={staggerContainer}
             initial="initial"
@@ -461,16 +455,16 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
                 key={article.id}
                 className={`group rounded-2xl ${cardBgClass} border ${cardBorderClass} overflow-hidden transition-all duration-300`}
                 variants={fadeInUp}
-                whileHover={{ 
+                whileHover={{
                   y: -8,
-                  boxShadow: isDarkMode 
-                    ? "0 25px 50px -20px rgba(0, 0, 0, 0.5)" 
+                  boxShadow: isDarkMode
+                    ? "0 25px 50px -20px rgba(0, 0, 0, 0.5)"
                     : "0 25px 50px -20px rgba(0, 0, 0, 0.15)",
                 }}
               >
                 <div className="aspect-video overflow-hidden">
-                  <img 
-                    src={article.image} 
+                  <img
+                    src={article.image}
                     alt={article.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -493,7 +487,7 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
                     <button className={`text-sm font-medium ${isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors flex items-center gap-1`}>
                       Read more
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 12h14m-7-7 7 7-7 7"/>
+                        <path d="M5 12h14m-7-7 7 7-7 7" />
                       </svg>
                     </button>
                   </div>
@@ -503,7 +497,7 @@ export default function ArticlesPage({ isDarkMode = false, onToggleDarkMode }) {
           </motion.div>
 
           {/* Load More Button */}
-          <motion.div 
+          <motion.div
             className="flex justify-center mt-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

@@ -318,8 +318,8 @@ export default function Interaction({ isDarkMode = false, onToggleDarkMode }) {
       >
         <div className={`p-4 border-b ${borderClass} flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-3'}`}>
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center shadow-md shadow-sky-500/20">
-              <span className="text-white font-bold text-sm">S</span>
+            <div className="w-9 h-9 rounded-xl overflow-hidden shadow-md">
+              <img src="/logo.png" alt="Sehat AI" className="w-full h-full object-cover" />
             </div>
             {!sidebarCollapsed && <span className={`font-semibold ${textPrimaryClass}`}>Sehat AI</span>}
           </Link>
@@ -386,8 +386,8 @@ export default function Interaction({ isDarkMode = false, onToggleDarkMode }) {
                 <MenuIcon />
               </button>
               <Link to="/" className="lg:hidden flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center">
-                  <span className="text-white font-bold text-xs">S</span>
+                <div className="w-8 h-8 rounded-lg overflow-hidden">
+                  <img src="/logo.png" alt="Sehat AI" className="w-full h-full object-cover" />
                 </div>
                 <span className={`font-semibold ${textPrimaryClass}`}>Sehat AI</span>
               </Link>
@@ -742,8 +742,8 @@ export default function Interaction({ isDarkMode = false, onToggleDarkMode }) {
             <motion.div className={`absolute left-0 top-0 h-full w-72 ${panelBgClass} shadow-2xl border-r ${borderClass}`} initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }}>
               <div className={`flex items-center justify-between p-4 border-b ${borderClass}`}>
                 <Link to="/" className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center">
-                    <span className="text-white font-bold text-xs">S</span>
+                  <div className="w-8 h-8 rounded-lg overflow-hidden">
+                    <img src="/logo.png" alt="Sehat AI" className="w-full h-full object-cover" />
                   </div>
                   <span className={`font-semibold ${textPrimaryClass}`}>Sehat AI</span>
                 </Link>

@@ -63,7 +63,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
   return (
     <div ref={containerRef} className={`relative min-h-screen ${baseBgClass} overflow-x-hidden`}>
       {/* Background circular gradients */}
-      <motion.div 
+      <motion.div
         className="pointer-events-none absolute inset-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -109,7 +109,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
 
       {/* Navigation Bar */}
       <header className="relative z-10">
-        <motion.div 
+        <motion.div
           className="mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-5"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,14 +118,12 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
           <div className={`flex items-center justify-between ${navBgClass} backdrop-blur-md rounded-2xl px-4 sm:px-6 py-3 shadow-lg shadow-black/5 ring-1 ${isDarkMode ? 'ring-gray-700' : 'ring-gray-200'}`}>
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2.5 font-semibold tracking-tight group">
-              <motion.span 
-                className={`grid h-9 w-9 place-items-center rounded-xl ${isDarkMode ? 'bg-gray-700' : 'bg-gray-800'} shadow-lg`}
+              <motion.span
+                className="h-9 w-9 rounded-xl overflow-hidden shadow-lg"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
+                <img src="/logo.png" alt="Sehat AI" className="w-full h-full object-cover" />
               </motion.span>
               <span className={`text-lg font-bold ${textPrimaryClass}`}>Sehat AI</span>
             </Link>
@@ -139,8 +137,8 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * index, duration: 0.5 }}
                 >
-                  <Link 
-                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
+                  <Link
+                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
                     className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all hover:bg-black/5 ${isDarkMode ? 'hover:bg-white/10 hover:text-white' : 'hover:text-gray-900'}`}
                   >
                     {item}
@@ -171,9 +169,9 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                 <div className="hidden md:flex items-center gap-3">
                   <div className="flex items-center gap-2">
                     {currentUser.photoURL && (
-                      <img 
-                        src={currentUser.photoURL} 
-                        alt="Profile" 
+                      <img
+                        src={currentUser.photoURL}
+                        alt="Profile"
                         className={`w-8 h-8 rounded-full ring-2 ${isDarkMode ? 'ring-gray-600' : 'ring-gray-300'}`}
                       />
                     )}
@@ -200,10 +198,10 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                   whileTap={{ scale: 0.98 }}
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                   </svg>
                   {authLoading ? 'Loading...' : 'Sign in with Google'}
                 </motion.button>
@@ -221,7 +219,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                   Tell Symptoms
                 </Link>
               </motion.div>
-              
+
               {/* Mobile Google Sign In */}
               {!currentUser && (
                 <motion.button
@@ -239,28 +237,28 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                     </svg>
                   ) : (
                     <svg className="w-5 h-5" viewBox="0 0 24 24">
-                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                     </svg>
                   )}
                 </motion.button>
               )}
-              
+
               {/* Mobile User Avatar */}
               {currentUser && (
                 <div className="flex md:hidden items-center">
                   {currentUser.photoURL && (
-                    <img 
-                      src={currentUser.photoURL} 
-                      alt="Profile" 
+                    <img
+                      src={currentUser.photoURL}
+                      alt="Profile"
                       className="w-10 h-10 rounded-xl ring-2 ring-blue-400/30"
                     />
                   )}
                 </div>
               )}
-              
+
               {/* Mobile Menu Button */}
               <button
                 className={`flex md:hidden items-center justify-center w-10 h-10 rounded-xl transition-colors ${isDarkMode ? 'bg-white/10 text-white' : 'bg-gray-100 text-gray-700'}`}
@@ -297,10 +295,8 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
             >
               <div className={`flex items-center justify-between p-4 border-b ${isDarkMode ? 'border-white/10' : 'border-gray-200'}`}>
                 <Link to="/" className="flex items-center gap-2.5 font-semibold" onClick={() => setMobileMenuOpen(false)}>
-                  <span className={`grid h-9 w-9 place-items-center rounded-xl shadow-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-800'}`}>
-                    <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
+                  <span className="h-9 w-9 rounded-xl overflow-hidden shadow-lg">
+                    <img src="/logo.png" alt="Sehat AI" className="w-full h-full object-cover" />
                   </span>
                   <span className={`text-lg font-bold ${textPrimaryClass}`}>Sehat AI</span>
                 </Link>
@@ -343,10 +339,10 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                   <span>Toggle Dark Mode</span>
                   <span className={`text-sm ${isDarkMode ? 'text-white/60' : 'text-gray-500'}`}>{isDarkMode ? 'On' : 'Off'}</span>
                 </motion.button>
-                
+
                 {/* Mobile Auth Section */}
                 {currentUser && (
-                  <motion.div 
+                  <motion.div
                     className="py-4 px-4 space-y-3"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -354,9 +350,9 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                   >
                     <div className="flex items-center gap-3">
                       {currentUser.photoURL && (
-                        <img 
-                          src={currentUser.photoURL} 
-                          alt="Profile" 
+                        <img
+                          src={currentUser.photoURL}
+                          alt="Profile"
                           className="w-10 h-10 rounded-full ring-2 ring-gray-500/30"
                         />
                       )}
@@ -394,7 +390,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
 
       <main className="relative z-10">
         <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 pb-3 pt-1 sm:pb-3 sm:pt-3 md:pb-4 md:pt-2 lg:pt-4 lg:pb-8">
-          <motion.div 
+          <motion.div
             className="flex flex-col lg:flex-row lg:items-center"
             variants={staggerContainer}
             initial="initial"
@@ -403,21 +399,21 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
             {/* Left Content */}
             <div className="lg:w-1/2 lg:pr-12">
               {/* Badge */}
-              <motion.div 
+              <motion.div
                 className="flex justify-start mb-4 lg:mb-3"
                 variants={fadeInUp}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
                 <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${isDarkMode ? 'bg-white/10 text-white/90' : 'bg-white text-gray-700 shadow-sm ring-1 ring-gray-200'}`}>
                   <svg className="w-4 h-4 text-cyan-500" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                   </svg>
                   Personalized treatment plans
                 </span>
               </motion.div>
 
               {/* Headline */}
-              <motion.h1 
+              <motion.h1
                 className={`text-4xl xs:text-5xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.5rem] ${textPrimaryClass}`}
                 variants={fadeInUp}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -430,7 +426,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                 >
                   Right care
                 </motion.span>
-                <motion.span 
+                <motion.span
                   className="block"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -439,7 +435,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                   Right{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">doctor</span>
                 </motion.span>
-                <motion.span 
+                <motion.span
                   className="block"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -451,7 +447,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
               </motion.h1>
 
               {/* Subheading */}
-              <motion.p 
+              <motion.p
                 className={`mt-4 max-w-lg text-base sm:text-lg leading-relaxed ${textSecondaryClass} lg:mt-4`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -461,15 +457,15 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
               </motion.p>
 
               {/* CTA Button */}
-              <motion.div 
+              <motion.div
                 className="mt-6 sm:mt-8 lg:mt-5"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
                 <motion.div
-                  whileHover={{ 
-                    scale: 1.02, 
+                  whileHover={{
+                    scale: 1.02,
                     boxShadow: "0 20px 40px -10px rgba(74, 159, 255, 0.4)",
                   }}
                   whileTap={{ scale: 0.98 }}
@@ -481,7 +477,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                   >
                     Find the Right Doctor
                     <svg className="ml-2 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 12h14m-7-7 7 7-7 7"/>
+                      <path d="M5 12h14m-7-7 7 7-7 7" />
                     </svg>
                   </Link>
                 </motion.div>
@@ -489,7 +485,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
             </div>
 
             {/* Right side - Stethoscope with Heart Image */}
-            <motion.div 
+            <motion.div
               className="hidden lg:flex lg:w-1/2 items-center justify-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -500,7 +496,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                 src="/stethoscope.png"
                 alt="Stethoscope forming heart shape"
                 className="w-[650px] h-[520px] object-contain select-none"
-                style={{ 
+                style={{
                   filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.1))',
                 }}
                 animate={{
@@ -517,7 +513,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
           </motion.div>
 
           {/* Feature Cards */}
-          <motion.div 
+          <motion.div
             className="mt-16 sm:mt-20 grid gap-3 grid-cols-1 sm:grid-cols-3 lg:mt-16"
             initial="initial"
             animate="animate"
@@ -531,31 +527,31 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
             }}
           >
             {[
-              { 
-                title: 'AI Triage Routing', 
+              {
+                title: 'AI Triage Routing',
                 desc: 'We guide patients to the correct medical specialist based on symptoms',
                 icon: (
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 5.607A2.25 2.25 0 0119.003 23h-14.006a2.25 2.25 0 01-2.2-2.093L4.2 15.3"/>
+                    <path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 5.607A2.25 2.25 0 0119.003 23h-14.006a2.25 2.25 0 01-2.2-2.093L4.2 15.3" />
                   </svg>
                 )
               },
-              { 
-                title: 'Nearby Hospital Suggestions', 
+              {
+                title: 'Nearby Hospital Suggestions',
                 desc: 'Find the closest hospitals and clinics instantly',
                 icon: (
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                    <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                   </svg>
                 )
               },
-              { 
-                title: 'Urgency Detection', 
+              {
+                title: 'Urgency Detection',
                 desc: 'Detect the urgency level of your symptoms to prioritize care',
                 icon: (
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    <path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 )
               },
@@ -565,13 +561,13 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                 className={`rounded-xl ${cardBgClass} backdrop-blur-sm p-4 sm:p-4 lg:p-4 ring-1 ring-white/10`}
                 variants={scaleIn}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ 
+                whileHover={{
                   y: -6,
                   boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.4)",
                   backgroundColor: isDarkMode ? "rgba(30, 58, 95, 0.95)" : "rgba(30, 58, 95, 0.95)",
                 }}
               >
-                <motion.div 
+                <motion.div
                   className="flex items-center gap-2 mb-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -582,7 +578,7 @@ export default function HomePage({ isDarkMode = false, onToggleDarkMode }) {
                   </div>
                   <h3 className="font-semibold text-white text-base">{card.title}</h3>
                 </motion.div>
-                <motion.p 
+                <motion.p
                   className="text-white/70 text-xs leading-relaxed"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

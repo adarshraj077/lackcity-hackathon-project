@@ -47,31 +47,31 @@ const SpeedIcon = () => (
 // Social Icons Components
 const DribbbleIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0C5.374 0 0 5.373 0 12c0 6.627 5.374 12 12 12s12-5.373 12-12c0-6.627-5.374-12-12-12zm7.568 5.408c1.352 1.65 2.174 3.752 2.207 6.037-2.134-.436-4.164-.533-6.088-.27-.267-.659-.547-1.299-.857-1.91 2.06-.918 3.736-2.248 4.738-3.857zM12 2.225c2.408 0 4.628.864 6.347 2.293-.894 1.468-2.41 2.697-4.286 3.536-1.347-2.458-2.87-4.45-4.476-5.877.78-.168 1.594-.252 2.415-.252zm-4.795.857c1.617 1.378 3.166 3.351 4.54 5.787-2.406.797-5.161 1.205-8.01 1.205-.334 0-.665-.01-.994-.023.693-2.908 2.315-5.419 4.464-6.969zM2.225 12l.028-.422c.375.011.748.017 1.119.017 3.203 0 6.277-.486 8.995-1.401.256.517.494 1.045.722 1.582-4.19 1.298-7.325 4.318-8.745 8.108C2.882 17.851 2.225 15.023 2.225 12zm4.028 9.247c1.239-3.564 4.058-6.388 7.91-7.584.75 1.918 1.341 3.952 1.762 6.023-.975.38-2.036.589-3.15.589-2.415 0-4.625-.843-6.522-3.028zm9.087 2.02c-.433-1.917-.99-3.801-1.685-5.594 1.678-.203 3.448-.08 5.317.37-.46 2.256-1.761 4.208-3.632 5.224z"/>
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 6.627 5.374 12 12 12s12-5.373 12-12c0-6.627-5.374-12-12-12zm7.568 5.408c1.352 1.65 2.174 3.752 2.207 6.037-2.134-.436-4.164-.533-6.088-.27-.267-.659-.547-1.299-.857-1.91 2.06-.918 3.736-2.248 4.738-3.857zM12 2.225c2.408 0 4.628.864 6.347 2.293-.894 1.468-2.41 2.697-4.286 3.536-1.347-2.458-2.87-4.45-4.476-5.877.78-.168 1.594-.252 2.415-.252zm-4.795.857c1.617 1.378 3.166 3.351 4.54 5.787-2.406.797-5.161 1.205-8.01 1.205-.334 0-.665-.01-.994-.023.693-2.908 2.315-5.419 4.464-6.969zM2.225 12l.028-.422c.375.011.748.017 1.119.017 3.203 0 6.277-.486 8.995-1.401.256.517.494 1.045.722 1.582-4.19 1.298-7.325 4.318-8.745 8.108C2.882 17.851 2.225 15.023 2.225 12zm4.028 9.247c1.239-3.564 4.058-6.388 7.91-7.584.75 1.918 1.341 3.952 1.762 6.023-.975.38-2.036.589-3.15.589-2.415 0-4.625-.843-6.522-3.028zm9.087 2.02c-.433-1.917-.99-3.801-1.685-5.594 1.678-.203 3.448-.08 5.317.37-.46 2.256-1.761 4.208-3.632 5.224z" />
   </svg>
 )
 
 const InstagramIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
   </svg>
 )
 
 const LinkedInIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
   </svg>
 )
 
 const TwitterIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
   </svg>
 )
 
 const GitHubIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
   </svg>
 )
 
@@ -84,7 +84,7 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
   const baseBgClass = isDarkMode ? 'bg-[#1a1a1a]' : 'bg-slate-50'
   const orbOneClass = isDarkMode ? 'bg-indigo-500/5' : 'bg-indigo-500/10'
   const orbTwoClass = isDarkMode ? 'bg-purple-500/5' : 'bg-purple-500/10'
-  
+
   // Theme-aware colors
   const textPrimaryClass = isDarkMode ? 'text-white' : 'text-gray-900'
   const textSecondaryClass = isDarkMode ? 'text-gray-400' : 'text-gray-600'
@@ -160,14 +160,14 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
   return (
     <div ref={containerRef} className={`min-h-screen ${baseBgClass} ${textPrimaryClass} transition-colors duration-300`}>
       {/* Animated background */}
-      <motion.div 
+      <motion.div
         className="pointer-events-none absolute inset-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
       >
         <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-br from-[#1a1a1a] via-[#1a1a1a] to-[#2d2d2d]' : 'bg-gradient-to-br from-slate-50 via-white to-indigo-50'}`} />
-        
+
         {/* Subtle gradient orbs */}
         <motion.div
           className={`absolute top-1/4 left-1/4 w-96 h-96 ${orbOneClass} rounded-full blur-3xl`}
@@ -199,19 +199,19 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
 
       {/* Header */}
       <header className="relative z-10">
-        <motion.div 
+        <motion.div
           className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-4 sm:py-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight group">
-            <motion.span 
-              className={`grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-xl ${headerBgClass} ring-1 ${headerRingClass}`}
+            <motion.span
+              className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl overflow-hidden shadow-sm"
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: 'spring', stiffness: 400 }}
             >
-              <span className="h-3 w-3 sm:h-4 sm:w-4 rounded bg-gradient-to-br from-indigo-400 to-fuchsia-400" />
+              <img src="/logo.png" alt="Sehat AI" className="w-full h-full object-cover" />
             </motion.span>
             <span className={`text-base sm:text-lg transition-colors ${isDarkMode ? 'group-hover:text-indigo-300' : 'group-hover:text-indigo-600'}`}>
               Sehat AI
@@ -227,8 +227,8 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * i, duration: 0.5 }}
               >
-                <Link 
-                  to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
+                <Link
+                  to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
                   className={`relative px-4 py-2 rounded-xl font-medium transition-all ${item === 'About' ? (isDarkMode ? 'text-white bg-white/10' : 'text-gray-900 bg-gray-100') : (isDarkMode ? 'hover:text-white hover:bg-white/10' : 'hover:text-gray-900 hover:bg-gray-100')}`}
                 >
                   {item}
@@ -256,9 +256,9 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
               <div className="hidden md:flex items-center gap-3">
                 <div className="flex items-center gap-2">
                   {currentUser.photoURL && (
-                    <img 
-                      src={currentUser.photoURL} 
-                      alt="Profile" 
+                    <img
+                      src={currentUser.photoURL}
+                      alt="Profile"
                       className="w-8 h-8 rounded-full ring-2 ring-white/20"
                     />
                   )}
@@ -285,10 +285,10 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
                 whileTap={{ scale: 0.95 }}
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
                 {authLoading ? 'Loading...' : 'Sign in'}
               </motion.button>
@@ -339,8 +339,8 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
             >
               <div className={`flex items-center justify-between p-4 border-b ${isDarkMode ? 'border-white/10' : 'border-gray-200'}`}>
                 <Link to="/" className="flex items-center gap-2 font-semibold" onClick={() => setMobileMenuOpen(false)}>
-                  <span className={`grid h-8 w-8 place-items-center rounded-xl ${headerBgClass} ring-1 ${headerRingClass}`}>
-                    <span className="h-3 w-3 rounded bg-gradient-to-br from-indigo-400 to-fuchsia-400" />
+                  <span className="h-8 w-8 rounded-xl overflow-hidden shadow-sm">
+                    <img src="/logo.png" alt="Sehat AI" className="w-full h-full object-cover" />
                   </span>
                   <span className={`text-base ${textPrimaryClass}`}>Sehat AI</span>
                 </Link>
@@ -355,15 +355,15 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
               </div>
               <nav className="flex flex-col p-4 space-y-1">
                 {['Home', 'Articles', 'About', 'Contact'].map((item, index) => (
-                  <motion.div 
+                  <motion.div
                     key={item}
-                    initial={{ opacity: 0, x: -20 }} 
-                    animate={{ opacity: 1, x: 0 }} 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 * index }}
                   >
-                    <Link 
-                      to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
-                      className={`py-4 px-4 rounded-xl transition-colors text-lg block ${item === 'About' ? `${textPrimaryClass} ${isDarkMode ? 'bg-white/5' : 'bg-gray-100'}` : `${mobileMenuTextClass} ${isDarkMode ? 'hover:text-white hover:bg-white/5' : 'hover:text-gray-900 hover:bg-gray-100'}`}`} 
+                    <Link
+                      to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                      className={`py-4 px-4 rounded-xl transition-colors text-lg block ${item === 'About' ? `${textPrimaryClass} ${isDarkMode ? 'bg-white/5' : 'bg-gray-100'}` : `${mobileMenuTextClass} ${isDarkMode ? 'hover:text-white hover:bg-white/5' : 'hover:text-gray-900 hover:bg-gray-100'}`}`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {item}
@@ -398,9 +398,9 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 lg:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
-          
+
           {/* Left Section - About Info */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-6 xl:col-span-5"
             initial="initial"
             animate="animate"
@@ -466,7 +466,7 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
           </div>
 
           {/* Right Section - Features & Team */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-5 xl:col-span-6 lg:pl-8"
             initial="initial"
             animate="animate"
@@ -544,7 +544,7 @@ export default function AboutPage({ isDarkMode = false, onToggleDarkMode }) {
             </motion.div>
 
             {/* Social Links */}
-            <motion.div 
+            <motion.div
               variants={fadeInUp}
               className={`mt-16 pt-8 border-t ${dividerClass}`}
             >
