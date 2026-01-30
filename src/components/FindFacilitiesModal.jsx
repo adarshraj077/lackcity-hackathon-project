@@ -115,7 +115,13 @@ export default function FindFacilitiesModal({ isOpen, onClose, isDarkMode = fals
         throw new Error('Google Maps is not loaded yet. Please try again.')
       }
 
-      const location = userLocation || { lat: 28.6139, lng: 77.2090 } // Default to Delhi
+      const location = userLocation
+
+      if (!location) {
+        setError('Location not available. Please enable location services and try again.')
+        setLoading(false)
+        return
+      }
 
       // Create a temporary div for PlacesService (it needs a map or div)
       const tempDiv = document.createElement('div')
@@ -395,8 +401,8 @@ export default function FindFacilitiesModal({ isOpen, onClose, isDarkMode = fals
                             {/* Open/Closed Status */}
                             {place.isOpen !== null && (
                               <span className={`text-xs px-2 py-0.5 rounded-full ${place.isOpen
-                                  ? 'bg-emerald-500/20 text-emerald-500'
-                                  : 'bg-red-500/20 text-red-500'
+                                ? 'bg-emerald-500/20 text-emerald-500'
+                                : 'bg-red-500/20 text-red-500'
                                 }`}>
                                 {place.isOpen ? 'Open' : 'Closed'}
                               </span>

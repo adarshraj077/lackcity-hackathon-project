@@ -1,8 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
   signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
   signOut,
   onAuthStateChanged,
   setPersistence,
@@ -16,59 +14,44 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-// Helper function to detect mobile devices
-function isMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-    (window.innerWidth <= 768);
-}
-
-// Helper function to check if running on localhost
-function isLocalhost() {
-  return window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1' ||
-    window.location.hostname.startsWith('192.168.');
-}
-
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [authError, setAuthError] = useState(null);
 
-  // Check for redirect result on mount (for mobile sign-in)
-  useEffect(() => {
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result?.user) {
-          console.log('Redirect sign-in successful');
-        }
-      })
-      .catch((error) => {
-        console.error('Error getting redirect result:', error);
-      });
-  }, []);
-
-  // Sign in with Google
+  // Sign in with Google - Always use popup (works on all hosting platforms)
   async function signInWithGoogle() {
     try {
+      setAuthError(null);
+
       // Set persistence to LOCAL - this keeps the user logged in even after browser is closed
       await setPersistence(auth, browserLocalPersistence);
 
-      // Use popup ONLY on localhost (where it works reliably)
-      // Use redirect for all deployed environments (Vercel, etc.) to avoid popup blocking issues
-      if (isLocalhost() && !isMobileDevice()) {
-        // Use popup only for desktop on localhost
-        const result = await signInWithPopup(auth, googleProvider);
-        return result.user;
-      } else {
-        // Use redirect for deployed sites and mobile (popups get blocked or fail)
-        await signInWithRedirect(auth, googleProvider);
-        return null; // Will redirect, so no immediate result
-      }
+      // Configure the Google provider for better UX
+      googleProvider.setCustomParameters({
+        prompt: 'select_account' // Always show account selector
+      });
+
+      // Use popup for all environments - signInWithRedirect only works with Firebase Hosting
+      // Vercel and other hosts don't support the /__/auth/handler path
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log('Sign-in successful:', result.user.email);
+      return result.user;
     } catch (error) {
-      console.error('Error signing in with Google:', error);
-      // If popup fails (e.g., blocked), fall back to redirect
-      if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
-        console.log('Popup blocked or closed, falling back to redirect...');
-        await signInWithRedirect(auth, googleProvider);
+      console.error('Error signing in with Google:', error.code, error.message);
+      setAuthError(error.message);
+
+      // Handle specific error cases
+      if (error.code === 'auth/popup-closed-by-user') {
+        console.log('User closed the popup');
+        return null;
+      }
+      if (error.code === 'auth/popup-blocked') {
+        setAuthError('Popup was blocked. Please allow popups for this site and try again.');
+        return null;
+      }
+      if (error.code === 'auth/cancelled-popup-request') {
+        // Multiple popup requests - ignore
         return null;
       }
       throw error;
@@ -100,7 +83,8 @@ export function AuthProvider({ children }) {
     currentUser,
     signInWithGoogle,
     logout,
-    loading
+    loading,
+    authError
   };
 
   return (

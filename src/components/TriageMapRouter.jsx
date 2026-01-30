@@ -144,21 +144,55 @@ export default function TriageMapRouter({ triageResult, selectedFacility = null,
       })
     }
 
-    // Get user location with retry and accuracy validation
+    // Fallback: Get location from IP address using free API
+    const getIPBasedLocation = async () => {
+      try {
+        console.log('Attempting IP-based geolocation...')
+        const response = await fetch('https://ipapi.co/json/', { timeout: 10000 })
+        if (!response.ok) throw new Error('IP geolocation failed')
+
+        const data = await response.json()
+        if (data.latitude && data.longitude) {
+          console.log('IP-based location:', data.city, data.region, data.latitude, data.longitude)
+          return {
+            lat: data.latitude,
+            lng: data.longitude,
+            isDefault: false,
+            source: 'ip',
+            city: data.city
+          }
+        }
+        throw new Error('No coordinates in IP response')
+      } catch (err) {
+        console.warn('IP geolocation failed:', err.message)
+        return null
+      }
+    }
+
+    // Get user location with retry, accuracy validation, and IP fallback
     const getUserLocation = () => {
-      return new Promise((resolve) => {
+      return new Promise(async (resolve) => {
+        // First try IP-based location as it's more reliable on deployed servers
+        const ipLocation = await getIPBasedLocation()
+
         if (!navigator.geolocation) {
-          console.warn('Geolocation not supported, using default location')
-          setError('Location not available. Showing results near Delhi. Please enable location for accurate results.')
-          resolve({ lat: 28.6139, lng: 77.2090, isDefault: true })
+          console.warn('Geolocation not supported')
+          if (ipLocation) {
+            setError(`Using approximate location (${ipLocation.city || 'your area'}). Enable GPS for better accuracy.`)
+            resolve(ipLocation)
+          } else {
+            setError('Could not determine your location. Please enable location services.')
+            resolve(null)
+          }
           return
         }
 
         let attempts = 0
-        const maxAttempts = 2
+        const maxAttempts = 3
 
         const tryGetLocation = () => {
           attempts++
+          console.log(`Geolocation attempt ${attempts}/${maxAttempts}`)
 
           navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -170,9 +204,15 @@ export default function TriageMapRouter({ triageResult, selectedFacility = null,
                 if (attempts < maxAttempts) {
                   setTimeout(tryGetLocation, 1000)
                 } else {
-                  console.warn('Failed to get valid location after retries')
-                  setError('Could not determine your exact location. Showing results near Delhi.')
-                  resolve({ lat: 28.6139, lng: 77.2090, isDefault: true })
+                  // Use IP location as fallback
+                  if (ipLocation) {
+                    console.log('Using IP-based location as fallback')
+                    setError(`Using approximate location (${ipLocation.city || 'your area'}). GPS unavailable.`)
+                    resolve(ipLocation)
+                  } else {
+                    setError('Could not determine your location. Please check your location settings.')
+                    resolve(null)
+                  }
                 }
                 return
               }
@@ -183,30 +223,39 @@ export default function TriageMapRouter({ triageResult, selectedFacility = null,
               }
 
               console.log('Got user location:', latitude, longitude, 'accuracy:', accuracy, 'm')
-              resolve({ lat: latitude, lng: longitude, isDefault: false })
+              resolve({ lat: latitude, lng: longitude, isDefault: false, source: 'gps' })
             },
             (error) => {
               console.warn('Geolocation error:', error.code, error.message)
 
-              // Retry on timeout
-              if (error.code === error.TIMEOUT && attempts < maxAttempts) {
-                console.log('Geolocation timeout, retrying...')
-                setTimeout(tryGetLocation, 500)
+              // Retry on timeout or position unavailable
+              if ((error.code === error.TIMEOUT || error.code === error.POSITION_UNAVAILABLE) && attempts < maxAttempts) {
+                console.log('Geolocation failed, retrying...')
+                setTimeout(tryGetLocation, 1000)
                 return
               }
 
-              // Show user-friendly error based on error type
-              if (error.code === error.PERMISSION_DENIED) {
-                setError('Location permission denied. Please enable location access for accurate results.')
+              // Use IP location as fallback
+              if (ipLocation) {
+                console.log('Using IP-based location as fallback after error')
+                if (error.code === error.PERMISSION_DENIED) {
+                  setError(`Location denied. Using approximate location (${ipLocation.city || 'your area'}).`)
+                } else {
+                  setError(`Using approximate location (${ipLocation.city || 'your area'}).`)
+                }
+                resolve(ipLocation)
               } else {
-                setError('Could not get your location. Showing results near Delhi.')
+                if (error.code === error.PERMISSION_DENIED) {
+                  setError('Location permission denied. Please enable location access in browser settings.')
+                } else {
+                  setError('Could not get your location. Please try again or enable location services.')
+                }
+                resolve(null)
               }
-
-              resolve({ lat: 28.6139, lng: 77.2090, isDefault: true })
             },
             {
               enableHighAccuracy: true,
-              timeout: 15000,
+              timeout: 20000,
               maximumAge: 0
             }
           )

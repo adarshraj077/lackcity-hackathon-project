@@ -141,15 +141,52 @@ export default function Interaction({ isDarkMode = false, onToggleDarkMode }) {
     }
   }
 
-  // Get user location
+  // Get user location with IP fallback
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude }),
-        (error) => console.log('Location access denied:', error.message),
-        { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
-      )
+    const getLocation = async () => {
+      // Try browser geolocation first
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            console.log('Got GPS location:', position.coords.latitude, position.coords.longitude)
+            setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude })
+          },
+          async (error) => {
+            console.log('GPS location failed:', error.message)
+            // Fallback to IP-based location
+            try {
+              const response = await fetch('https://ipapi.co/json/')
+              if (response.ok) {
+                const data = await response.json()
+                if (data.latitude && data.longitude) {
+                  console.log('Using IP location:', data.city, data.latitude, data.longitude)
+                  setUserLocation({ lat: data.latitude, lng: data.longitude })
+                }
+              }
+            } catch (err) {
+              console.warn('IP geolocation also failed:', err.message)
+            }
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+        )
+      } else {
+        // No browser geolocation, try IP-based
+        try {
+          const response = await fetch('https://ipapi.co/json/')
+          if (response.ok) {
+            const data = await response.json()
+            if (data.latitude && data.longitude) {
+              console.log('Using IP location (no GPS):', data.city, data.latitude, data.longitude)
+              setUserLocation({ lat: data.latitude, lng: data.longitude })
+            }
+          }
+        } catch (err) {
+          console.warn('IP geolocation failed:', err.message)
+        }
+      }
     }
+
+    getLocation()
   }, [])
 
   // Fetch search history
